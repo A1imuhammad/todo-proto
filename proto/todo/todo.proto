@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package todo;
+
+option go_package = "github.com/A1imuhammad/todo-proto/gen/go/todo;todo1";
+
+// The ToDo service provides task management functionality.
+// It allows creating, updating, retrieving, listing and deleting tasks.
+service ToDo {
+
+  // Creates a new task with the provided title and description.
+  rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse);
+
+  // Updates an existing task by ID.
+  // Allows modifying title, description and completion status.
+  rpc UpdateTask(UpdateTaskRequest) returns (UpdateTaskResponse);
+
+  // Returns a paginated list of tasks.
+  rpc ListTasks(ListTasksRequest) returns (ListTasksResponse);
+
+  // Deletes a task by ID.
+  rpc DeleteTask(DeleteTaskRequest) returns (DeleteTaskResponse);
+
+  // Returns a single task by its ID.
+  rpc GetTask(GetTaskRequest) returns (GetTaskResponse);
+}
+
+// Task represents a single to-do item.
+message Task {
+  int64  id          = 1; // Unique task identifier
+  string title       = 2; // Short task title
+  string description = 3; // Detailed task description
+  bool   done        = 4; // Indicates whether the task is completed
+  int64  created_at  = 5; // Task creation timestamp (Unix time)
+  int64  updated_at  = 6; // Task last update timestamp (Unix time)
+}
+
+// Request to create a new task.
+message CreateTaskRequest {
+  string title       = 1; // Title of the task (required)
+  string description = 2; // Description of the task (optional)
+}
+
+// Response containing the created task.
+message CreateTaskResponse {
+  Task task = 1; // Newly created task
+}
+
+// Request to retrieve a task by ID.
+message GetTaskRequest {
+  int64 id = 1; // Task ID
+}
+
+// Response containing the requested task.
+message GetTaskResponse {
+  Task task = 1; // Requested task
+}
+
+// Request to update an existing task.
+message UpdateTaskRequest {
+  int64  id          = 1; // Task ID
+  string title       = 2; // Updated title
+  string description = 3; // Updated description
+  bool   done        = 4; // Updated completion status
+}
+
+// Response containing the updated task.
+message UpdateTaskResponse {
+  Task task = 1; // Updated task
+}
+
+// Request to retrieve a list of tasks with pagination.
+message ListTasksRequest {
+  int32 limit  = 1; // Maximum number of tasks to return
+  int32 offset = 2; // Number of tasks to skip
+}
+
+// Response containing a list of tasks.
+message ListTasksResponse {
+  repeated Task tasks = 1; // List of tasks
+}
+
+// Request to delete a task by ID.
+message DeleteTaskRequest {
+  int64 id = 1; // Task ID
+}
+
+// Response indicating deletion result.
+message DeleteTaskResponse {
+  bool success = 1; // True if task was successfully deleted
+}
