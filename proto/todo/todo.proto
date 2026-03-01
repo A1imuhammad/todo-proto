@@ -60,8 +60,7 @@ message UpdateTaskResponse {
 
 // Request to retrieve a list of tasks with pagination.
 message ListTasksRequest {
-  int32 limit  = 1; // Maximum number of tasks to return
-  int32 offset = 2; // Number of tasks to skip
+  
 }
 
 // Response containing a list of tasks.
