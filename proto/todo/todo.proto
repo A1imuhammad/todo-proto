@@ -21,8 +21,6 @@ service ToDo {
   // Deletes a task by ID.
   rpc DeleteTask(DeleteTaskRequest) returns (DeleteTaskResponse);
 
-  // Returns a single task by its ID.
-  rpc GetTask(GetTaskRequest) returns (GetTaskResponse);
 }
 
 // Task represents a single to-do item.
@@ -46,15 +44,6 @@ message CreateTaskResponse {
   Task task = 1; // Newly created task
 }
 
-// Request to retrieve a task by ID.
-message GetTaskRequest {
-  int64 id = 1; // Task ID
-}
-
-// Response containing the requested task.
-message GetTaskResponse {
-  Task task = 1; // Requested task
-}
 
 // Request to update an existing task.
 message UpdateTaskRequest {
